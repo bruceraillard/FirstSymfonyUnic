@@ -18,7 +18,9 @@
                 <tbody>
                 {% for bookmark in bookmarks %}
                     <tr>
-                        <td>{{ bookmark.url }}</td>
+                        <td>
+                            <a href="{{ path('bookmark_show', { id: bookmark.id }) }}">{{ bookmark.url }}</a>
+                        </td>
                         <td>{{ bookmark.createdAt|date('d/m/Y H:i') }}</td>
                         <td>{{ bookmark.comment ?: 'Aucun commentaire' }}</td>
                     </tr>
