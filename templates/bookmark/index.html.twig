@@ -10,6 +10,7 @@
             <table class="table table-bordered table-hover shadow-sm">
                 <thead class="table-dark">
                 <tr>
+                    <th>Id</th>
                     <th>URL</th>
                     <th>Date de Création</th>
                     <th>Commentaire</th>
@@ -19,8 +20,9 @@
                 {% for bookmark in bookmarks %}
                     <tr>
                         <td>
-                            <a href="{{ path('bookmark_show', { id: bookmark.id }) }}">{{ bookmark.url }}</a>
+                            <a href="{{ path('bookmark_show', { id: bookmark.id }) }}">{{ bookmark.id }}</a>
                         </td>
+                        <td>{{ bookmark.url }}</td>
                         <td>{{ bookmark.createdAt|date('d/m/Y H:i') }}</td>
                         <td>{{ bookmark.comment ?: 'Aucun commentaire' }}</td>
                     </tr>
