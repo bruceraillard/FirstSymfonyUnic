@@ -30,6 +30,19 @@
                         <th>Commentaire</th>
                         <td>{{ bookmark.comment ?: 'Aucun commentaire' }}</td>
                     </tr>
+                    <tr>
+                        <th>Mots clés</th>
+                        <td>
+                            <ul class="list-inline">
+                                {% for tag in bookmark.tags %}
+                                    <li class="list-inline-item badge bg-primary text-white p-2">{{ tag.name }}</li>
+                                {% else %}
+                                    <li class="text-muted">Aucun mot-clé</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
 
