@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du livre{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center color_mauve">Details du livre {{ book.id }}</h1>
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered table-hover shadow-sm">
+                <thead>
+                <tr>
+                    <th>Libellé</th>
+                    <th>Valeur</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th class="color_rose">id</th>
+                    <td class="color_bleu">{{ book.id }}</td>
+                </tr>
+                <tr>
+                    <th class="color_rose">Titre</th>
+                    <td class="color_bleu">{{ book.title }}</td>
+                </tr>
+                <tr>
+                    <th class="color_rose">Date de publication</th>
+                    <td class="color_bleu">{{ book.publicationdate|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <th class="color_rose">Maison d'édition</th>
+                    <td class="color_bleu">{{ book.publishinghouse }}</td>
+                </tr>
+                <tr>
+                    <th class="color_rose">Auteur</th>
+                    <td class="color_bleu">{{ book.auteur.surname }} {{ book.auteur.firstname }}</td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <div class="mt-3">
+                <a href="{{ path('book_list') }}" class="btn btn-secondary">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -4,10 +4,10 @@
 
 {% block body %}
     <div class="container mt-5">
-        <h1 class="text-center text-primary">📌 Details du marque page {{ bookmark.id }}</h1>
+        <h1 class="text-center color_mauve">Details du marque page {{ bookmark.id }}</h1>
         <div class="table-responsive mt-4">
             <table class="table table-bordered table-hover shadow-sm">
-                <thead class="table-dark">
+                <thead>
                 <tr>
                     <th>Libellé</th>
                     <th>Valeur</th>
@@ -15,27 +15,23 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th>id</th>
-                        <td>{{ bookmark.id }}</td>
+                        <th class="color_rose">id</th>
+                        <td class="color_bleu">{{ bookmark.id }}</td>
                     </tr>
                     <tr>
-                        <th>url</th>
-                        <td>{{ bookmark.url }}</td>
+                        <th class="color_rose">url</th>
+                        <td class="color_bleu">{{ bookmark.url }}</td>
                     </tr>
                     <tr>
-                        <th>Date de création</th>
-                        <td>{{ bookmark.createdAt|date('d/m/Y H:i') }}</td>
+                        <th class="color_rose">Commentaire</th>
+                        <td class="color_bleu">{{ bookmark.comment ?: 'Aucun commentaire' }}</td>
                     </tr>
                     <tr>
-                        <th>Commentaire</th>
-                        <td>{{ bookmark.comment ?: 'Aucun commentaire' }}</td>
-                    </tr>
-                    <tr>
-                        <th>Mots clés</th>
+                        <th class="color_rose">Mots clés</th>
                         <td>
                             <ul class="list-inline">
                                 {% for tag in bookmark.tags %}
-                                    <li class="list-inline-item badge bg-primary text-white p-2">{{ tag.name }}</li>
+                                    <li class="list-inline-item badge bg_bleu text-white p-2">{{ tag.name }}</li>
                                 {% else %}
                                     <li class="text-muted">Aucun mot-clé</li>
                                 {% endfor %}

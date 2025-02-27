@@ -17,9 +17,6 @@ class Bookmark
     #[ORM\Column(type: 'string', unique: true)]
     private string $url;
 
-    #[ORM\Column(name: "create_date", type: 'datetime_immutable')]
-    private \DateTimeImmutable $createdAt;
-
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $comment = null;
 

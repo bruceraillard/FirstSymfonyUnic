@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Cailloux - {{ title|default('Exploration') }}{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="text-center p-5 rounded bg_mauve text-white">
+            <h1 class="display-4 fw-bold text-shadow">{{ title|default('Bienvenue sur Le Cailloux') }}</h1>
+            <p class="lead">Découvrez la richesse naturelle de la faune et la flore du Cailloux.</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="d-flex justify-content-center my-4">
+            <a href="{{ path('lecailloux_category', { 'category': 'faune' }) }}" class="btn bg_bleu text-white btn-lg mx-2 w-25">
+                Faune
+            </a>
+            <a href="{{ path('lecailloux_category', { 'category': 'flore' }) }}" class="btn bg_bleu text-white btn-lg mx-2 w-25">
+                Flore
+            </a>
+        </div>
+
+
+        <!-- Contenu dynamique -->
+        <div class="card shadow-lg p-4 bg_mauve">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List of Book{% endblock %}  {# Sets the page title #}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center color_mauve">Liste des livres</h1>  {# Page heading with styling #}
+
+        <div class="table-responsive mt-4">  {# Makes the table responsive for different screen sizes #}
+
+            {# Dropdown form to filter books by the first letter #}
+            <form action="{{ path('book_findByFirstLetter', {'firstLetter': ''}) }}" method="GET" class="mb-3">
+                <label for="filter">Filtrer par la première lettre :</label>
+                <select id="filterLetter" class="form-select w-auto">
+                    <option value="allBook">Tout</option>  {# Option to show all books #}
+                    {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'|split('') %}
+                        {# Set the selected option based on the currently selected letter #}
+                        <option value="{{ letter }}" {% if selectedLetter is defined and selectedLetter and selectedLetter == letter %}selected{% endif %}>{{ letter }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+
+            {# Table displaying the list of books #}
+            <table class="table table-bordered table-hover shadow-sm">
+                <thead>
+                <tr>
+                    <th>Id</th>  {# Column for book ID #}
+                    <th>Title ({{ numberOfBooks }})</th>  {# Column for book titles, displaying the total count #}
+                </tr>
+                </thead>
+                <tbody>
+                {% for book in books %}
+                    <tr>
+                        {# Clicking on the ID redirects to the book details page #}
+                        <td>
+                            <a class="color_rose" href="{{ path('book_show', { id: book.id }) }}">{{ book.id }}</a>
+                        </td>
+                        <td class="color_bleu">{{ book.title }}</td>  {# Displays the book title #}
+                    </tr>
+                {% else %}
+                    {# Displays a message if no books are found #}
+                    <tr>
+                        <td colspan="4" class="text-center text-muted p-3">
+                            No books recorded.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Add an event listener to detect changes in the <select> element with the ID "filterLetter"
+        document.getElementById("filterLetter").addEventListener("change", function () {
+
+            // Get the selected value from the dropdown menu
+            let selectedLetter = this.value;
+
+            // Check if the user selected "All"
+            if (selectedLetter === "allBook") {
+                // Redirect to the page displaying all books
+                window.location.href = "{{ path('book_list') }}";
+            } else {
+                // Redirect to the page filtering books by the selected first letter
+                // Construct the URL dynamically by appending the selected letter to the Symfony route
+                window.location.href = "{{ path('book_findByFirstLetter', {'firstLetter': ''}) }}" + "-" + selectedLetter;
+            }
+        });
+    </script>
+
+{% endblock %}

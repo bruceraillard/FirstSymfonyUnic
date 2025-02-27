@@ -1,0 +1,57 @@
+{% extends 'le_cailloux/index.html.twig' %}
+
+{% block title %}Flore du Cailloux{% endblock %}
+
+{% block content %}
+    <h2 class="text-center text-white">Découvrez la Flore du Cailloux</h2>
+    <p class="text-center text-white">Les espèces uniques qui peuplent notre île.</p>
+
+    <div class="row">
+        {% for item in items %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title text-center color_bleu">{{ item.name }}</h4>
+
+                        {% if item.media is not empty %}
+                            <div id="carousel{{ loop.index }}" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    {% for media in item.media %}
+                                        <button type="button" data-bs-target="#carousel{{ loop.index }}" data-bs-slide-to="{{ loop.index0 }}"
+                                                class="{% if loop.first %}active{% endif %}" aria-label="Slide {{ loop.index }}">
+                                        </button>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="carousel-inner">
+                                    {% for media in item.media %}
+                                        <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                            <div class="d-flex align-items-center justify-content-center" style="height: 250px; overflow: hidden;">
+                                                <img src="{{ asset(media.url) }}" class="w-100" style="height: 100%; object-fit: cover;">
+                                            </div>
+                                            <div class="carousel-caption d-none d-md-block">
+                                                <h5 class="bg-dark bg-opacity-50 p-2 rounded">{{ media.name }}</h5>
+                                                <p class="bg-dark bg-opacity-50 p-1 rounded">{{ media.description }}</p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ loop.index }}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Précédent</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ loop.index }}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Suivant</span>
+                                </button>
+                            </div>
+                        {% else %}
+                            <p class="text-muted text-center">Aucune image disponible.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

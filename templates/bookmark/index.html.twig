@@ -4,27 +4,23 @@
 
 {% block body %}
     <div class="container mt-5">
-        <h1 class="text-center text-primary">📌 Liste des Marque-Pages</h1>
+        <h1 class="text-center color_mauve">Liste des Marque-Pages</h1>
 
         <div class="table-responsive mt-4">
             <table class="table table-bordered table-hover shadow-sm">
-                <thead class="table-dark">
+                <thead>
                 <tr>
                     <th>Id</th>
                     <th>URL</th>
-                    <th>Date de Création</th>
-                    <th>Commentaire</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for bookmark in bookmarks %}
                     <tr>
                         <td>
-                            <a href="{{ path('bookmark_show', { id: bookmark.id }) }}">{{ bookmark.id }}</a>
+                            <a class="color_rose" href="{{ path('bookmark_show', { id: bookmark.id }) }}">{{ bookmark.id }}</a>
                         </td>
-                        <td>{{ bookmark.url }}</td>
-                        <td>{{ bookmark.createdAt|date('d/m/Y H:i') }}</td>
-                        <td>{{ bookmark.comment ?: 'Aucun commentaire' }}</td>
+                        <td class="color_bleu">{{ bookmark.url }}</td>
                     </tr>
                 {% else %}
                     <tr>
