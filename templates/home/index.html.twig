@@ -1,20 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <!-- Hero Section -->
+    <header class="text-black text-center py-5">
+        <div class="container">
+            <h1 class="display-4">Bienvenue sur MonSite</h1>
+            <p class="lead">Découvrez notre plateforme et explorez nos fonctionnalités.</p>
+            <a href="#" class="btn btn-light btn-lg">En savoir plus</a>
+        </div>
+    </header>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/bruceraillard/Documents/avengers_bruce/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>/Users/bruceraillard/Documents/avengers_bruce/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+    <!-- Section About -->
+    <section class="container py-5">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Pourquoi nous choisir ?</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra, lectus id sagittis placerat, nisi urna posuere lacus, eget facilisis purus tortor id nunc.</p>
+                <a href="#" class="btn btn-primary">Découvrir</a>
+            </div>
+            <div class="col-md-6">
+                <img src="{{ asset("assets/images/media1.png") }}" class="img-fluid rounded" alt="Illustration">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <i class="bi bi-lightning-fill text-primary" style="font-size: 3rem;"></i>
+                    <h4>Rapide</h4>
+                    <p>Notre service est conçu pour être ultra-rapide et efficace.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="bi bi-shield-lock-fill text-primary" style="font-size: 3rem;"></i>
+                    <h4>Sécurisé</h4>
+                    <p>Nous garantissons un haut niveau de sécurité pour vos données.</p>
+                </div>
+                <div class="col-md-4">
+                    <i class="bi bi-stars text-primary" style="font-size: 3rem;"></i>
+                    <h4>Innovant</h4>
+                    <p>Une technologie moderne pour une expérience utilisateur optimale.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 {% endblock %}
