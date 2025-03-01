@@ -10,38 +10,48 @@ use App\Entity\Media;
 use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $faker = Factory::create('fr_FR');
+
         $auteurs = [];
         $tags = [];
         $lescailloux = [];
 
-        // Création de 5 auteurs
-        for ($i = 1; $i <= 5; $i++) {
+        // 📚 Création de 5 auteurs
+        $noms = ['Martin', 'Dubois', 'Lemoine', 'Gauthier', 'Morel'];
+        $prenoms = ['Alice', 'Jean', 'Sophie', 'Lucas', 'Claire'];
+
+        for ($i = 0; $i < 5; $i++) {
             $auteur = new Auteurs();
-            $auteur->setSurname("NomAuteur $i");
-            $auteur->setFirstname("PrénomAuteur $i");
-            $auteur->setBirthdate(new \DateTime(mt_rand(1950, 2000) . '-'.mt_rand(1,12).'-'.mt_rand(1,28)));
+            $auteur->setSurname($noms[$i]);
+            $auteur->setFirstname($prenoms[$i]);
+            $auteur->setBirthdate($faker->dateTimeBetween('-70 years', '-30 years'));
 
             $manager->persist($auteur);
-            $auteurs[] = $auteur; // Stocke les auteurs pour les attribuer aux livres
+            $auteurs[] = $auteur;
         }
 
-        // Création de 15 livres
+        // 📖 Création de 15 livres
+        $publishingHouses = ['Hachette', 'Gallimard', 'Flammarion', 'Albin Michel', 'Seuil'];
+
         for ($i = 0; $i < 15; $i++) {
             $book = new Livres();
-            $book->setTitle('Livre ' .$i);
-            $book->setPublicationdate(new \DateTime(mt_rand(1975, 2020)."-".mt_rand(1, 12)."-".mt_rand(1, 28)));
-            $book->setPublishinghouse('Hachette');
+            $book->setTitle($faker->sentence(3));
+            $book->setPublicationdate($faker->dateTimeBetween('-50 years', 'now'));
+            $book->setPublishinghouse($publishingHouses[array_rand($publishingHouses)]);
             $book->setAuteur($auteurs[array_rand($auteurs)]);
+
             $manager->persist($book);
         }
 
-        // Création de 5 tags
-        $tagNames = ['Fantaisie', 'Science-fiction', 'Horreur', 'Aventure', 'Historique'];
+        // 🏷️ Création de 7 tags
+        $tagNames = ['Fantaisie', 'Science-fiction', 'Horreur', 'Aventure', 'Historique', 'Philosophie', 'Biographie'];
+
         foreach ($tagNames as $name) {
             $tag = new Tag();
             $tag->setName($name);
@@ -49,11 +59,11 @@ class AppFixtures extends Fixture
             $tags[] = $tag;
         }
 
-        // Création de 25 bookmark
+        // 🔖 Création de 25 bookmarks
         for ($i = 0; $i < 25; $i++) {
             $bookmark = new Bookmark();
-            $bookmark->setUrl('https://getbootstrap.com/'.$i);
-            $bookmark->setComment('Bruce');
+            $bookmark->setUrl($faker->url);
+            $bookmark->setComment($faker->sentence());
 
             shuffle($tags);
             $selectedTags = array_slice($tags, 0, mt_rand(1, 3));
@@ -63,31 +73,52 @@ class AppFixtures extends Fixture
             $manager->persist($bookmark);
         }
 
-        // Création de 25 lecailloux
-        for ($i = 0; $i < 25; $i++) {
-            $lecailloux = new LeCailloux();
-            $lecailloux->setName('Chien'.$i);
+        // 🪨 Création de 15
+        $fauneNames = ['Cagou', 'Gecko', 'Cerf', 'Cochon', 'Renard', 'Serpent', 'Chien'];
+        $floreNames = ['Eucalyptus', 'Kaori', 'Kapok', 'Niaouli', 'Bananier', 'Sapin'];
 
-            $lecaillouxcategory = ["faune", "flore"];
-            $lecailloux->setCategory($lecaillouxcategory[array_rand($lecaillouxcategory)]);
+        for ($i = 0; $i < 15; $i++) {
+            $lecailloux = new LeCailloux();
+
+            // Déterminer la catégorie
+            $category = (mt_rand(0, 1) === 0) ? "faune" : "flore";
+            $lecailloux->setCategory($category);
+
+            // Attribuer un nom en fonction de la catégorie
+            if ($category === "faune") {
+                $lecailloux->setName($fauneNames[array_rand($fauneNames)] . ' ' . $i);
+            } else {
+                $lecailloux->setName($floreNames[array_rand($floreNames)] . ' ' . $i);
+            }
 
             $manager->persist($lecailloux);
             $lescailloux[] = $lecailloux;
         }
 
-        // Création de 70 media
+
+        // 📷 Création de 70 médias
+        $mediaDescriptions = [
+            "Un magnifique spécimen découvert récemment.",
+            "Un artefact ancien fascinant.",
+            "Un élément naturel au design unique.",
+            "Une pierre précieuse d'une beauté rare.",
+            "Un minéral aux propriétés étonnantes."
+        ];
+
+        $mediaUrls = [
+            "assets/images/media1.png",
+            "assets/images/media2.png",
+            "assets/images/media3.png",
+            "assets/images/media4.png",
+            "assets/images/media5.png"
+        ];
+
         for ($i = 0; $i < 70; $i++) {
             $media = new Media();
-            $media->setName('Pierre'.$i);
-            $media->setDescription('Description '.$i);
+            $media->setName('Pierre ' . $i);
+            $media->setDescription($mediaDescriptions[array_rand($mediaDescriptions)]);
             $media->setLecailloux($lescailloux[array_rand($lescailloux)]);
-
-            $mediaurl = ["assets/images/media1.png", "assets/images/media2.png", "assets/images/media3.png", "assets/images/media4.png", "assets/images/media5.png"];
-            shuffle($mediaurl);
-            $selectedMedia = array_slice($mediaurl, 0, mt_rand(1, 5));
-            foreach ($selectedMedia as $url) {
-                $media->setUrl($url);
-            }
+            $media->setUrl($mediaUrls[array_rand($mediaUrls)]);
 
             $manager->persist($media);
         }
