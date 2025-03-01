@@ -16,6 +16,7 @@ class LeCaillouxRepository extends ServiceEntityRepository
         parent::__construct($registry, LeCailloux::class);
     }
 
+    //custom query to get lecailloux by category
     public function findByCategory(string $category): array
     {
         return $this->getEntityManager()

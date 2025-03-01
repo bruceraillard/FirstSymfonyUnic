@@ -16,7 +16,8 @@ class LivresRepository extends ServiceEntityRepository
         parent::__construct($registry, Livres::class);
     }
 
-    public function findByFirstLetter(string $firstLetter): array
+    //custom query to get books by first letter of the title
+    public function findByFirstLetter(?string $firstLetter): array
     {
         return $this->getEntityManager()
             ->createQuery('
@@ -27,6 +28,18 @@ class LivresRepository extends ServiceEntityRepository
         ')
             ->setParameter('firstLetter', $firstLetter . '%')
             ->getResult();
+    }
+
+    //custom query to get the number of books
+    public function bookCount()
+    {
+        return $this->getEntityManager()
+            ->createQuery('
+            SELECT COUNT(l)
+            FROM App\Entity\Livres l
+        ')
+            ->getSingleScalarResult();
+
     }
 
     //    /**
