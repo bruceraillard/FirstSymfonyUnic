@@ -106,4 +106,41 @@ final class BookController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    // Defines the route for editing a book, e.g. /book/edit/1
+    #[Route('/edit/{id}', name: 'edit')]
+    public function edit(int $id, Request $request, LivresRepository $bookRepository, EntityManagerInterface $entityManager): Response
+    {
+        // Fetch the book entity by its ID
+        $livre = $bookRepository->find($id);
+
+        // If the book doesn't exist, throw a 404 error
+        if (!$livre) {
+            throw $this->createNotFoundException("Book not found.");
+        }
+
+        // Create the form and bind it to the existing book entity
+        $form = $this->createForm(BookType::class, $livre);
+
+        // Handle the request (submit, validation, etc.)
+        $form->handleRequest($request);
+
+        // If the form is submitted and valid, save the changes to the database
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush(); // No need to call persist, entity is already managed
+
+            // Add a success flash message
+            $this->addFlash('success', 'Book successfully updated!');
+
+            // Redirect to the book list page after saving
+            return $this->redirectToRoute('book_list');
+        }
+
+        // Render the same template used for creation, passing the form view
+        return $this->render('book/manage.html.twig', [
+            'form' => $form->createView(),
+            'book' => $livre,
+        ]);
+    }
+
 }
