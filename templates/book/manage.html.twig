@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un nouveau livre{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Créer un nouveau livre</h1>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                {{ form_start(form) }}
+
+                <div class="row g-3">
+                    {% for field in form %}
+                        {% if field.vars.name != '_token' %}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }}
+                                    {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(field) }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Créer</button>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

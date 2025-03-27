@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Livres;
+use App\Form\BookType;
 use App\Repository\LivresRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -70,6 +74,36 @@ final class BookController extends AbstractController
             'books' => $books,
             'selectedLetter' => $firstLetter,
             'numberOfBooks' => $numberOfBooks,
+        ]);
+    }
+
+    #[Route('/new', name: 'new')]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        // Create a new instance of Livres
+        $livre = new Livres();
+
+        // Create the form based on BookType and bind it to the Livres entity
+        $form = $this->createForm(BookType::class, $livre);
+
+        // Handle the HTTP request
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Persist the entity to the database
+            $entityManager->persist($livre);
+            $entityManager->flush();
+
+            // Add a flash message
+            $this->addFlash('success', 'Book created successfully!');
+
+            // Redirect to the list of books (route 'book_list')
+            return $this->redirectToRoute('book_list');
+        }
+
+        // Render the form in the template
+        return $this->render('book/manage.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 }
