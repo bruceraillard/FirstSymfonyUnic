@@ -6,6 +6,19 @@
     <div class="container mt-5">
         <h1 class="text-center color_mauve">Liste des auteurs</h1>
 
+        {# Bouton "Auteurs multiples" aligné à droite au-dessus du tableau #}
+        <div class="d-flex justify-content-end mb-3">
+            <a href="{{ path('author_multi_book') }}"
+               class="btn btn-outline-secondary d-flex align-items-center justify-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                     class="bi bi-book-half me-2" viewBox="0 0 16 16">
+                    <path d="M8.5 2.495v10.01a.5.5 0 0 0 .757.429l4.743-2.375V3.441L9.257 1.066A.5.5 0 0 0 8.5 1.495v1z"/>
+                    <path d="M8 1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h4V1z"/>
+                </svg>
+                Auteurs multiples
+            </a>
+        </div>
+
         <div class="table-responsive mt-4">
             <table class="table table-bordered table-hover shadow-sm">
                 <thead>

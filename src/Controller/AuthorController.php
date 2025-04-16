@@ -51,7 +51,7 @@ final class AuthorController extends AbstractController
         $auteurs = $auteursRepository->findMultiBookAuthor();
         $numberOfAuthors = count($auteurs);
 
-        return $this->render('author/index.html.twig', [
+        return $this->render('author/multibookAuthor.html.twig', [
             'authors' => $auteurs,
             'numberOfAuthors' => $numberOfAuthors,
             'filter' => 'multi_book',

@@ -23,7 +23,7 @@ class AuteursRepository extends ServiceEntityRepository
             ->createQuery('
             SELECT a
             FROM App\Entity\Auteurs a
-            JOIN a.livres l
+            JOIN a.livre l
             GROUP BY a.id
             HAVING COUNT(l) > 1
         ')
