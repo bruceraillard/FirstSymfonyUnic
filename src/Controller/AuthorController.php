@@ -30,6 +30,19 @@ final class AuthorController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}', name: 'show', requirements: ['id' => '\d+'])]
+    public function show(int $id, AuteursRepository $auteursRepository): Response
+    {
+        $auteur = $auteursRepository->find($id);
+
+        if (!$auteur) {
+            throw $this->createNotFoundException("Auteur non trouvé avec l'ID " . $id);
+        }
+
+        return $this->render('author/show.html.twig', [
+            'author' => $auteur,
+        ]);
+    }
 
     // Filters authors who have written more than one book.
     #[Route('/multi-book', name: 'multi_book')]

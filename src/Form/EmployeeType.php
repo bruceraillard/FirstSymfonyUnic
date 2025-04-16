@@ -18,7 +18,9 @@ class EmployeeType extends AbstractType
             ->add('firstname')
             ->add('adresses', EntityType::class, [
                 'class' => Adresse::class,
-                'choice_label' => 'id',
+                'choice_label' => function (Adresse $adresse) {
+                    return $adresse->getAdresse() . ' (' . $adresse->getPostalcode() . ', ' . $adresse->getCountry() . ')';
+                },
                 'multiple' => true,
             ])
         ;

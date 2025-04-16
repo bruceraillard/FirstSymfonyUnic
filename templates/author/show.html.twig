@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'auteur{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center color_mauve">Détails de l'auteur</h1>
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered table-hover shadow-sm">
+                <thead>
+                <tr>
+                    <th>Libellé</th>
+                    <th>Valeur</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th class="color_rose">ID</th>
+                    <td class="color_bleu">{{ author.id }}</td>
+                </tr>
+                <tr>
+                    <th class="color_rose">Nom</th>
+                    <td class="color_bleu">{{ author.surname }}</td>
+                </tr>
+                <tr>
+                    <th class="color_rose">Prénom</th>
+                    <td class="color_bleu">{{ author.firstname }}</td>
+                </tr>
+                <tr>
+                    <th class="color_rose">Date de naissance</th>
+                    <td class="color_bleu">
+                        {{ author.birthdate ? author.birthdate|date('d/m/Y') : 'Non renseignée' }}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="color_rose">Livres publiés</th>
+                    <td>
+                        {% if author.livre|length > 0 %}
+                            <ul class="mb-0">
+                                {% for book in author.livre %}
+                                    <li>
+                                        <strong>{{ book.title }}</strong>
+                                        (publié le {{ book.publicationdate|date('d/m/Y') }})
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span class="text-muted">Aucun livre publié</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="mt-3">
+                <a href="{{ path('author_list') }}" class="btn btn-secondary">Retour à la liste</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

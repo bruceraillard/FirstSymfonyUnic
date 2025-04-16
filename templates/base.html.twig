@@ -27,11 +27,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <!-- Marque-pages -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('bookmark_list') }}">Marque-pages</a>
+                    <a class="nav-link" href="{{ path('home') }}">Accueil</a>
                 </li>
-
                 <!-- Livres -->
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('book_list') }}">Livres</a>
@@ -39,8 +37,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('author_list') }}">Auteur</a>
                 </li>
-                <li><a class="nav-link" href="{{ path('lecailloux_home') }}">Le Cailloux</a></li>
+                <!-- Marque-pages -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('bookmark_list') }}">Marque-pages</a>
+                </li>
                 <li><a class="nav-link" href="{{ path('employee_list') }}">Employé</a></li>
+                <li><a class="nav-link" href="{{ path('lecailloux_home') }}">Le Cailloux</a></li>
 
             </ul>
         </div>
