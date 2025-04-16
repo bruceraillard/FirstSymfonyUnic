@@ -11,18 +11,57 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/employee')]
+// Controller responsible for handling all employee-related operations.
+#[Route('/employee', name: 'employee_')]
 final class EmployeeController extends AbstractController
 {
-    #[Route(name: 'app_employee_index', methods: ['GET'])]
+    // Display a list of all employees.
+    #[Route('/', name: 'list')]
     public function index(EmployeeRepository $employeeRepository): Response
     {
+        $employees = $employeeRepository->findAll();
+        $numberOfEmployees = count($employees);
+
         return $this->render('employee/index.html.twig', [
-            'employees' => $employeeRepository->findAll(),
+            'employees' => $employees,
+            'numberOfEmployees' => $numberOfEmployees,
         ]);
     }
 
-    #[Route('/new', name: 'app_employee_new', methods: ['GET', 'POST'])]
+    // Display the details of a single employee.
+    #[Route("/{id}", name: "show", requirements: ["id" => "\d+"])]
+    public function showEmployee(int $id, EmployeeRepository $employeeRepository): Response
+    {
+        $employee = $employeeRepository->find($id);
+
+        if (!$employee) {
+            throw $this->createNotFoundException("No employee found with ID " . $id);
+        }
+
+        return $this->render('employee/show.html.twig', [
+            'employee' => $employee,
+        ]);
+    }
+
+    // Filter employees by the first letter of their last name.
+    #[Route('/findByFirstLetter-{firstLetter}', name: 'findByFirstLetter')]
+    public function findByFirstLetter(EmployeeRepository $employeeRepository, string $firstLetter = null): Response
+    {
+        $employees = $firstLetter
+            ? $employeeRepository->findByFirstLetter($firstLetter)
+            : $employeeRepository->findAll();
+
+        $numberOfEmployees = count($employees);
+
+        return $this->render("employee/index.html.twig", [
+            'employees' => $employees,
+            'selectedLetter' => $firstLetter,
+            'numberOfEmployees' => $numberOfEmployees,
+        ]);
+    }
+
+    // Create a new employee.
+    #[Route('/new', name: 'new')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $employee = new Employee();
@@ -33,49 +72,38 @@ final class EmployeeController extends AbstractController
             $entityManager->persist($employee);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_employee_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Employee created successfully!');
+            return $this->redirectToRoute('employee_list');
         }
 
-        return $this->render('employee/new.html.twig', [
-            'employee' => $employee,
-            'form' => $form,
+        return $this->render('employee/manage.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/{id}', name: 'app_employee_show', methods: ['GET'])]
-    public function show(Employee $employee): Response
+    // Edit an existing employee.
+    #[Route('/edit/{id}', name: 'edit')]
+    public function edit(int $id, Request $request, EmployeeRepository $employeeRepository, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('employee/show.html.twig', [
-            'employee' => $employee,
-        ]);
-    }
+        $employee = $employeeRepository->find($id);
 
-    #[Route('/{id}/edit', name: 'app_employee_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Employee $employee, EntityManagerInterface $entityManager): Response
-    {
+        if (!$employee) {
+            throw $this->createNotFoundException("Employee not found.");
+        }
+
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_employee_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Employee successfully updated!');
+            return $this->redirectToRoute('employee_list');
         }
 
-        return $this->render('employee/edit.html.twig', [
+        return $this->render('employee/manage.html.twig', [
+            'form' => $form->createView(),
             'employee' => $employee,
-            'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}', name: 'app_employee_delete', methods: ['POST'])]
-    public function delete(Request $request, Employee $employee, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$employee->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($employee);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_employee_index', [], Response::HTTP_SEE_OTHER);
     }
 }
