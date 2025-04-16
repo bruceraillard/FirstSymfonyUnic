@@ -92,6 +92,4 @@ class BookmarkController extends AbstractController
             'is_edit' => true,
         ]);
     }
-
-
-}
+} 

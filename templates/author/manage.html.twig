@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ author is defined ? 'Modifier' : 'Créer' }} un auteur{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="mb-4">{{ author is defined ? 'Modifier' : 'Créer' }} un auteur</h1>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                {{ form_start(form) }}
+                <div class="row g-3">
+                    {% for field in form %}
+                        {% if field.vars.name != '_token' %}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }}
+                                    {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(field) }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn bg_mauve text-white mt-3">
+                    {{ author is defined ? 'Modifier' : 'Créer' }}
+                </button>
+                <a href="{{ path('author_list') }}" class="btn bg_rose text-white mt-3 ms-2">
+                    Annuler
+                </a>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
