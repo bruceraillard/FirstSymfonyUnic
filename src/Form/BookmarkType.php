@@ -18,7 +18,7 @@ class BookmarkType extends AbstractType
             ->add('comment')
             ->add('Tags', EntityType::class, [
                 'class' => Tag::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
             ])
         ;

@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Bookmark;
+use App\Form\BookmarkType;
 use App\Repository\BookmarkRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -46,4 +48,50 @@ class BookmarkController extends AbstractController
             'bookmark' => $bookmark,
         ]);
     }
+
+    #[Route('/new', name: 'new')]
+    public function new(Request $request, EntityManagerInterface $em): Response
+    {
+        $bookmark = new Bookmark();
+        $bookmark->setCreatedAt(new \DateTimeImmutable());
+
+        $form = $this->createForm(BookmarkType::class, $bookmark);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($bookmark);
+            $em->flush();
+
+            $this->addFlash('success', 'Bookmark créé avec succès !');
+
+            return $this->redirectToRoute('bookmark_list');
+        }
+
+        return $this->render('bookmark/manage.html.twig', [
+            'form' => $form->createView(),
+            'is_edit' => false,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edit')]
+    public function edit(Request $request, Bookmark $bookmark, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(BookmarkType::class, $bookmark);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            $this->addFlash('success', 'Bookmark mis à jour !');
+
+            return $this->redirectToRoute('bookmark_list');
+        }
+
+        return $this->render('bookmark/manage.html.twig', [
+            'form' => $form->createView(),
+            'is_edit' => true,
+        ]);
+    }
+
+
 }

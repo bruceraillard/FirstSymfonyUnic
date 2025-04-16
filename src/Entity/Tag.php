@@ -21,7 +21,7 @@ class Tag
     /**
      * @var Collection<int, Bookmark>
      */
-    #[ORM\ManyToMany(targetEntity: Bookmark::class, inversedBy: 'Tags')]
+    #[ORM\ManyToMany(targetEntity: Bookmark::class, mappedBy: 'Tags')]
     private Collection $Bookmark;
 
     public function __construct()

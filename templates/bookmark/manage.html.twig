@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ bookmark is defined ? 'Modifier' : 'Ajouter' }} un bookmark{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="mb-4">{{ bookmark is defined ? 'Modifier' : 'Ajouter' }} un bookmark</h1>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                {{ form_start(form) }}
+                <div class="row g-3">
+                    {% for field in form %}
+                        {% if field.vars.name != '_token' %}
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }}
+
+                                    {# Applique la classe 'form-control' uniquement si le champ est un input texte/select #}
+                                    {% if field.vars.block_prefixes is defined and 'checkbox' in field.vars.block_prefixes or 'choice' in field.vars.block_prefixes and field.vars.multiple and field.vars.compound %}
+                                        {{ form_widget(field) }}
+                                    {% else %}
+                                        {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
+                                    {% endif %}
+
+                                    {{ form_errors(field) }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-success mt-3">
+                    {{ bookmark is defined ? 'Mettre à jour' : 'Ajouter' }}
+                </button>
+                <a href="{{ path('bookmark_list') }}" class="btn btn-secondary mt-3 ms-2">Annuler</a>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
