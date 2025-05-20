@@ -11,53 +11,62 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-// Define the controller for handling bookmarks.
-// The base route is '/bookmarks', and all route names will be prefixed with 'bookmark_'.
+/**
+ * Controller for managing bookmarks.
+ */
 #[Route('/bookmarks', name: 'bookmark_')]
 class BookmarkController extends AbstractController
 {
-    // Method to list all bookmarks.
-    // Accessible via the URL '/bookmarks/' and named 'bookmark_list'.
+    /**
+     * Display a list of all bookmarks.
+     */
     #[Route('/', name: 'list')]
     public function index(BookmarkRepository $bookmarkRepository): Response
     {
-        // Retrieve all bookmarks from the repository.
+        // Retrieve all bookmark records from the database
         $bookmarks = $bookmarkRepository->findAll();
 
-        // Render the 'bookmark/index.html.twig' view and pass the 'bookmarks' variable.
+        // Render the list view, passing the bookmarks collection
         return $this->render('bookmark/index.html.twig', [
             'bookmarks' => $bookmarks,
         ]);
     }
 
-    // Method to display the details of a bookmark using its identifier.
-    // Accessible via the URL '/bookmarks/{id}', where {id} must be numeric (enforced by the requirement).
+    /**
+     * Show details for a single bookmark by its ID.
+     */
     #[Route("/{id}", name: "show", requirements: ["id" => "\d+"])]
     public function showBookmark(int $id, BookmarkRepository $bookmarkRepository): Response
     {
-        // Find the bookmark corresponding to the given ID in the database.
+        // Look up the bookmark with the specified ID
         $bookmark = $bookmarkRepository->find($id);
 
-        // If no bookmark is found, throw a 404 exception.
+        // Throw a 404 error if the bookmark does not exist
         if (!$bookmark) {
             throw $this->createNotFoundException("No bookmark found with ID " . $id);
         }
 
-        // Render the 'bookmark/show.html.twig' view and pass the 'bookmark' variable.
+        // Render the detail view for the found bookmark
         return $this->render('bookmark/show.html.twig', [
             'bookmark' => $bookmark,
         ]);
     }
 
+    /**
+     * Handle creation of a new bookmark.
+     */
     #[Route('/new', name: 'new')]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
+        // Initialize a new Bookmark entity and set its creation timestamp
         $bookmark = new Bookmark();
         $bookmark->setCreatedAt(new \DateTimeImmutable());
 
+        // Build and process the creation form
         $form = $this->createForm(BookmarkType::class, $bookmark);
         $form->handleRequest($request);
 
+        // On valid submission, persist the new bookmark and redirect to list
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($bookmark);
             $em->flush();
@@ -67,18 +76,24 @@ class BookmarkController extends AbstractController
             return $this->redirectToRoute('bookmark_list');
         }
 
+        // Render the form for creating a bookmark
         return $this->render('bookmark/manage.html.twig', [
             'form' => $form->createView(),
             'is_edit' => false,
         ]);
     }
 
+    /**
+     * Handle editing of an existing bookmark.
+     */
     #[Route('/{id}/edit', name: 'edit')]
     public function edit(Request $request, Bookmark $bookmark, EntityManagerInterface $em): Response
     {
+        // Build and process the edit form for the provided Bookmark entity
         $form = $this->createForm(BookmarkType::class, $bookmark);
         $form->handleRequest($request);
 
+        // On valid submission, update the bookmark and redirect to list
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
 
@@ -87,9 +102,10 @@ class BookmarkController extends AbstractController
             return $this->redirectToRoute('bookmark_list');
         }
 
+        // Render the form for editing a bookmark
         return $this->render('bookmark/manage.html.twig', [
             'form' => $form->createView(),
             'is_edit' => true,
         ]);
     }
-} 
+}

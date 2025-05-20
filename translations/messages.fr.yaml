@@ -1,0 +1,120 @@
+# --------------------------------------------------------
+# Base
+# --------------------------------------------------------
+
+# ----- Header -----
+
+# Section "Navigation"
+base.header.nav.home: "Accueil"
+base.header.nav.books: "Livres"
+base.header.nav.bookmarks: "Marques-pages"
+base.header.nav.authors: "Auteurs"
+base.header.nav.employees: "Employées"
+
+# ----- Footer -----
+base.footer.create_by: "Créé par"
+
+# --------------------------------------------------------
+# Home
+# --------------------------------------------------------
+
+# ----- Index -----
+home.index.title: "Bienvenue sur notre plateforme"
+home.index.subtitle: "Découvrez notre plateforme et explorez nos fonctionnalités."
+home.index.button: "En savoir plus"
+
+# Section "About"
+home.index.about.title: "Pourquoi nous choisir ?"
+home.index.about.description: "Notre mission est de fournir des outils qui facilitent la vie quotidienne et améliorent l'efficacité."
+home.index.about.button: "En savoir plus sur nous"
+
+# --------------------------------------------------------
+# Book
+# --------------------------------------------------------
+
+# ----- Index -----
+book.index.title: "Liste des livres"
+book.index.filter_label: "Filtrer par la première lettre"
+book.index.filter_all: "Tout"
+
+# Section "Table"
+book.index.table.title: "Titre"
+book.index.table.empty: "Aucun livre trouvé"
+
+# ----- Manage -----
+book.manage.title_create: "Ajouter un livre"
+book.manage.title_edit: "Modifier un livre"
+
+# Section "Fields"
+book.manage.field.title: 'Titre'
+book.manage.field.publication_date: 'Date de publication'
+book.manage.field.publishing_house: 'Maison d’édition'
+book.manage.field.author: 'Auteur'
+
+# Section "Buttons"
+book.manage.submitButton_edit: 'Modifier'
+book.manage.submitButton_create: 'Ajouter'
+book.manage.cancelButton: 'Annuler'
+
+# ----- Show -----
+book.show.title: "Détails du livre"
+
+# Section "Table"
+book.show.table.title: 'Titre'
+book.show.table.publication_date: 'Date de publication'
+book.show.table.publishing_house: 'Maison d’édition'
+book.show.table.author: 'Auteur'
+
+# Section "Buttons"
+book.show.button_back: 'Retour à la liste'
+
+# --------------------------------------------------------
+# Bookmark
+# --------------------------------------------------------
+
+# ----- Index -----
+bookmark.index.title: "Liste des marques-pages"
+
+# ----- Manage -----
+bookmark.manage.title_create: "Ajouter un marque-page"
+bookmark.manage.title_edit: "Modifier un marque-page"
+
+# Section "Fields"
+bookmark.manage.field.comment: 'Commentaire'
+bookmark.manage.field.tags: 'Mots clés'
+
+# Section "Buttons"
+bookmark.manage.submitButton_edit: 'Modifier'
+bookmark.manage.submitButton_create: 'Ajouter'
+bookmark.manage.cancelButton: 'Annuler'
+
+# ----- Show -----
+bookmark.show.title: "Détails du livre"
+
+# Section "Table"
+bookmark.show.table.comment: 'Commentaire'
+bookmark.show.table.tags: 'Mots clés'
+bookmark.show.table.tags_empty: 'Aucun mot clé trouvé'
+
+# Section "Buttons"
+bookmark.show.button_back: 'Retour à la liste'
+
+# --------------------------------------------------------
+# Le Cailloux
+# --------------------------------------------------------
+
+# ----- Index -----
+lecailloux.index.title: "Bienvenue sur le Cailloux"
+lecailloux.index.subtitle: "Découvrez la richesse naturelle de la faune et la flore du Cailloux."
+
+#Section "Navigation"
+lecailloux.index.nav.fauna: "Faune"
+lecailloux.index.nav.flora: "Flore"
+
+# ----- Fauna -----
+lecailloux.fauna.title: "Découvrez la faune du Cailloux"
+lecailloux.fauna.subtitle: "Explorez la diversité de la faune de notre île."
+
+# ----- Flora -----
+lecailloux.flora.title: "Découvrez la flore du Cailloux"
+lecailloux.flora.subtitle: "Découvrez la beauté des plantes et des fleurs de notre île."

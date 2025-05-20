@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\DataFixtures;
 
@@ -18,14 +18,18 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        // Initialize Faker for French data
         $faker = Factory::create('fr_FR');
 
+        // Collections to hold created entities for later associations
         $auteurs = [];
         $tags = [];
         $lescailloux = [];
         $adresses = [];
 
-        // 📚 Auteurs
+        //────────────────────────────────────────────────────────────────────────
+        // Create 5 authors with random names and birthdates
+        //────────────────────────────────────────────────────────────────────────
         $noms = ['Martin', 'Dubois', 'Lemoine', 'Gauthier', 'Morel'];
         $prenoms = ['Alice', 'Jean', 'Sophie', 'Lucas', 'Claire'];
 
@@ -38,7 +42,9 @@ class AppFixtures extends Fixture
             $auteurs[] = $auteur;
         }
 
-        // 📖 Livres
+        //────────────────────────────────────────────────────────────────────────
+        // Create 15 books with random titles, dates, publishers, and authors
+        //────────────────────────────────────────────────────────────────────────
         $publishingHouses = ['Hachette', 'Gallimard', 'Flammarion', 'Albin Michel', 'Seuil'];
 
         for ($i = 0; $i < 15; $i++) {
@@ -50,7 +56,9 @@ class AppFixtures extends Fixture
             $manager->persist($book);
         }
 
-        // 🏷️ Tags
+        //────────────────────────────────────────────────────────────────────────
+        // Create a set of tags for categorizing bookmarks
+        //────────────────────────────────────────────────────────────────────────
         $tagNames = ['Fantaisie', 'Science-fiction', 'Horreur', 'Aventure', 'Historique', 'Philosophie', 'Biographie'];
 
         foreach ($tagNames as $name) {
@@ -60,12 +68,15 @@ class AppFixtures extends Fixture
             $tags[] = $tag;
         }
 
-        // 🔖 Bookmarks
+        //────────────────────────────────────────────────────────────────────────
+        // Create 25 bookmarks with random URLs, comments, and tag assignments
+        //────────────────────────────────────────────────────────────────────────
         for ($i = 0; $i < 25; $i++) {
             $bookmark = new Bookmark();
             $bookmark->setUrl($faker->url);
             $bookmark->setComment($faker->sentence());
 
+            // Assign 1–3 random tags to each bookmark
             shuffle($tags);
             foreach (array_slice($tags, 0, rand(1, 3)) as $tag) {
                 $bookmark->addTag($tag);
@@ -74,40 +85,44 @@ class AppFixtures extends Fixture
             $manager->persist($bookmark);
         }
 
-        // 🪨 LeCailloux
+        //────────────────────────────────────────────────────────────────────────
+        // Create 15 LeCailloux entries with random category and name
+        //────────────────────────────────────────────────────────────────────────
         $fauneNames = ['Cagou', 'Gecko', 'Cerf', 'Cochon', 'Renard', 'Serpent', 'Chien'];
         $floreNames = ['Eucalyptus', 'Kaori', 'Kapok', 'Niaouli', 'Bananier', 'Sapin'];
 
         for ($i = 0; $i < 15; $i++) {
             $lecailloux = new LeCailloux();
-            $category = (rand(0, 1) === 0) ? "faune" : "flore";
+            $category = (rand(0, 1) === 0) ? 'faune' : 'flore';
             $lecailloux->setCategory($category);
-            $lecailloux->setName(($category === "faune" ? $fauneNames : $floreNames)[array_rand($fauneNames)] . " " . $i);
+            $names = $category === 'faune' ? $fauneNames : $floreNames;
+            $lecailloux->setName($names[array_rand($names)] . ' ' . $i);
 
             $manager->persist($lecailloux);
             $lescailloux[] = $lecailloux;
         }
 
-        // 📷 Médias
+        //────────────────────────────────────────────────────────────────────────
+        // Create 70 media items linked to random LeCailloux entries
+        //────────────────────────────────────────────────────────────────────────
         $mediaDescriptions = [
-            "Un magnifique spécimen découvert récemment.",
-            "Un artefact ancien fascinant.",
-            "Un élément naturel au design unique.",
-            "Une pierre précieuse d'une beauté rare.",
-            "Un minéral aux propriétés étonnantes."
+            'Un magnifique spécimen découvert récemment.',
+            'Un artefact ancien fascinant.',
+            'Un élément naturel au design unique.',
+            'Une pierre précieuse d’une beauté rare.',
+            'Un minéral aux propriétés étonnantes.',
         ];
-
         $mediaUrls = [
-            "assets/images/media1.png",
-            "assets/images/media2.png",
-            "assets/images/media3.png",
-            "assets/images/media4.png",
-            "assets/images/media5.png"
+            'assets/images/media1.png',
+            'assets/images/media2.png',
+            'assets/images/media3.png',
+            'assets/images/media4.png',
+            'assets/images/media5.png',
         ];
 
         for ($i = 0; $i < 70; $i++) {
             $media = new Media();
-            $media->setName("Pierre " . $i);
+            $media->setName('Pierre ' . $i);
             $media->setDescription($mediaDescriptions[array_rand($mediaDescriptions)]);
             $media->setUrl($mediaUrls[array_rand($mediaUrls)]);
             $media->setLecailloux($lescailloux[array_rand($lescailloux)]);
@@ -115,7 +130,9 @@ class AppFixtures extends Fixture
             $manager->persist($media);
         }
 
-        // 🏡 Adresses
+        //────────────────────────────────────────────────────────────────────────
+        // Create 10 addresses with random data
+        //────────────────────────────────────────────────────────────────────────
         for ($i = 0; $i < 10; $i++) {
             $adresse = new Adresse();
             $adresse->setAdresse($faker->streetAddress);
@@ -125,12 +142,16 @@ class AppFixtures extends Fixture
             $adresses[] = $adresse;
         }
 
-        // 👷 Employés
+        //────────────────────────────────────────────────────────────────────────
+        // Create 10 employees and assign each 1–3 random addresses
+        //────────────────────────────────────────────────────────────────────────
         for ($i = 0; $i < 10; $i++) {
             $employee = new Employee();
             $employee->setFirstname($faker->firstName);
             $employee->setSurname($faker->lastName);
 
+            // Link random addresses to the employee
+            shuffle($adresses);
             foreach (array_slice($adresses, 0, rand(1, 3)) as $adresse) {
                 $employee->addAdress($adresse);
             }
@@ -138,6 +159,7 @@ class AppFixtures extends Fixture
             $manager->persist($employee);
         }
 
+        // Persist all created entities to the database
         $manager->flush();
     }
 }

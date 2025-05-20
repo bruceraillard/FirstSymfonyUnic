@@ -1,0 +1,122 @@
+# --------------------------------------------------------
+# Base
+# --------------------------------------------------------
+
+# ----- Header -----
+
+# Section "Navigation"
+base.header.nav.home: "Home"
+base.header.nav.books: "Books"
+base.header.nav.bookmarks: "Bookmarks"
+base.header.nav.authors: "Authors"
+base.header.nav.employees: "Employees"
+
+# ----- Footer -----
+base.footer.create_by: "Created by"
+
+# --------------------------------------------------------
+# Home
+# --------------------------------------------------------
+
+# ----- Index -----
+
+home.index.title: "Welcome to our platform"
+home.index.subtitle: "Discover our platform and explore our features."
+home.index.button: "Learn more"
+
+# Section "About"
+home.index.about.title: "Why choose us?"
+home.index.about.description: "Our mission is to provide tools that make daily life easier and improve efficiency."
+home.index.about.button: "Learn more about us"
+
+# --------------------------------------------------------
+# Book
+# --------------------------------------------------------
+
+# ----- Index -----
+book.index.title: "List of Books"
+book.index.filter_label: "Filter by first letter"
+book.index.filter_all: "All"
+
+# Section "Book Table"
+book.index.table.title: "Title"
+book.index.table.empty: "No books found"
+
+# ----- Manage -----
+book.manage.title_create: "Add a Book"
+book.manage.title_edit: "Edit a Book"
+
+# Section "Fields"
+book.manage.field.title:             'Title'
+book.manage.field.publication_date:  'Publication Date'
+book.manage.field.publishing_house:  'Publishing House'
+book.manage.field.author:            'Author'
+
+# Section "Buttons"
+book.manage.submitButton_edit: 'Edit'
+book.manage.submitButton_create: 'Add'
+book.manage.cancelButton: 'Cancel'
+
+# ----- Show -----
+book.show.title: "Book Details"
+
+# Section "Table"
+book.show.table.title: 'Title'
+book.show.table.publication_date: 'Publication Date'
+book.show.table.publishing_house: 'Publishing House'
+book.show.table.author: 'Author'
+
+# Section "Buttons"
+book.show.button_back: 'Back to list'
+
+# --------------------------------------------------------
+# Bookmark
+# --------------------------------------------------------
+
+# ----- Index -----
+bookmark.index.title: "List of Bookmarks"
+
+# ----- Manage -----
+bookmark.manage.title_create: "Add a Bookmark"
+bookmark.manage.title_edit: "Edit a Bookmark"
+
+# Section "Fields"
+bookmark.manage.field.comment: 'Comment'
+bookmark.manage.field.tags: 'Tags'
+
+# Section "Buttons"
+bookmark.manage.submitButton_edit: 'Edit'
+bookmark.manage.submitButton_create: 'Add'
+bookmark.manage.cancelButton: 'Cancel'
+
+# ----- Show -----
+bookmark.show.title: "Bookmark Details"
+
+# Section "Table"
+bookmark.show.table.comment: 'Comment'
+bookmark.show.table.tags: 'Tags'
+bookmark.show.table.tags_empty: 'No tags found'
+
+# Section "Buttons"
+bookmark.show.button_back: 'Back to list'
+
+# --------------------------------------------------------
+# Le Cailloux
+# --------------------------------------------------------
+
+# ----- Index -----
+lecailloux.index.title: "Welcome to Le Cailloux"
+lecailloux.index.subtitle: "Discover the wonders of our island"
+
+#Section "Navigation"
+lecailloux.index.nav.fauna: "Fauna"
+lecailloux.index.nav.flora: "Flora"
+
+# ----- Fauna -----
+lecailloux.fauna.title: "Discover the Fauna of Le Cailloux"
+lecailloux.fauna.subtitle: "Explore the diversity of wildlife on our island."
+
+# ----- Flora -----
+lecailloux.flora.title: "Discover the Flora of Le Cailloux"
+lecailloux.flora.subtitle: "Explore the beauty of plants and flowers on our island."
+

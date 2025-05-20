@@ -4,7 +4,13 @@
 
 {% block body %}
     <div class="container mt-5">
-        <h1 class="mb-4">{{ book is defined ? 'Modifier' : 'Créer' }} un livre</h1>
+        <h1 class="mb-4">
+            {{ (book is defined
+            ? 'book.manage.title_edit'
+            : 'book.manage.title_create'
+            )|trans }}
+        </h1>
+
 
         <div class="card shadow-sm">
             <div class="card-body">
@@ -24,10 +30,13 @@
                 </div>
 
                 <button type="submit" class="btn bg_mauve text-white mt-3">
-                    {{ book is defined ? 'Modifier' : 'Créer' }}
+                    {{ (book is defined
+                    ? 'book.manage.submitButton_edit'
+                    : 'book.manage.submitButton_create'
+                    )|trans }}
                 </button>
                 <a href="{{ path('book_list') }}" class="btn bg_rose text-white mt-3 ms-2">
-                    Annuler
+                    {{ 'book.manage.cancelButton'|trans }}
                 </a>
                 {{ form_end(form) }}
             </div>

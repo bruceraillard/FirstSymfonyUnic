@@ -5,17 +5,17 @@
 {% block body %}
     <div class="container mt-5">
         <div class="text-center p-5 rounded bg_mauve text-white">
-            <h1 class="display-4 fw-bold text-shadow">{{ title|default('Bienvenue sur Le Cailloux') }}</h1>
-            <p class="lead">Découvrez la richesse naturelle de la faune et la flore du Cailloux.</p>
+            <h1 class="display-4 fw-bold text-shadow">{{ 'lecailloux.index.title'|trans }}</h1>
+            <p class="lead">{{ 'lecailloux.index.subtitle'|trans }}</p>
         </div>
 
         <!-- Navigation -->
         <div class="d-flex justify-content-center my-4">
             <a href="{{ path('lecailloux_category', { 'category': 'faune' }) }}" class="btn bg_bleu text-white btn-lg mx-2 w-25">
-                Faune
+                {{ 'lecailloux.index.nav.fauna'|trans }}
             </a>
             <a href="{{ path('lecailloux_category', { 'category': 'flore' }) }}" class="btn bg_bleu text-white btn-lg mx-2 w-25">
-                Flore
+                {{ 'lecailloux.index.nav.flora'|trans }}
             </a>
         </div>
 

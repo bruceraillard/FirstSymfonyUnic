@@ -3,8 +3,8 @@
 {% block title %}Faune{% endblock %}
 
 {% block content %}
-    <h2 class="text-center text-white">Découvrez la Faune du Cailloux</h2>
-    <p class="text-center text-white">Les espèces uniques qui peuplent notre île.</p>
+    <h2 class="text-center text-white">{{ 'lecailloux.fauna.title'|trans }}</h2>
+    <p class="text-center text-white">{{ 'lecailloux.fauna.subtitle'|trans }}</p>
 
     <div class="row">
         {% for item in items %}

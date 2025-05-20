@@ -5,9 +5,9 @@
     <!-- Hero Section -->
     <header class="text-black text-center py-5">
         <div class="container">
-            <h1 class="display-4">Bienvenue sur MonSite</h1>
-            <p class="lead">Découvrez notre plateforme et explorez nos fonctionnalités.</p>
-            <a href="#" class="btn btn-light btn-lg">En savoir plus</a>
+            <h1 class="display-4">{{ 'home.index.title'|trans }}</h1>
+            <p class="lead">{{ 'home.index.subtitle'|trans }}</p>
+            <a href="#" class="btn btn-light btn-lg">{{ 'home.index.button'|trans }}</a>
         </div>
     </header>
 
@@ -15,38 +15,14 @@
     <section class="container py-5">
         <div class="row">
             <div class="col-md-6">
-                <h2>Pourquoi nous choisir ?</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra, lectus id sagittis placerat, nisi urna posuere lacus, eget facilisis purus tortor id nunc.</p>
-                <a href="#" class="btn btn-primary">Découvrir</a>
+                <h2>{{ 'home.index.about.title'|trans }}</h2>
+                <p>{{ 'home.index.about.description'|trans }}</p>
+                <a href="#" class="btn btn-primary">{{ 'home.index.about.button'|trans }}</a>
             </div>
             <div class="col-md-6">
                 <img src="{{ asset("assets/images/media1.png") }}" class="img-fluid rounded" alt="Illustration">
             </div>
         </div>
     </section>
-
-    <!-- Features Section -->
-    <section class="bg-light py-5">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <i class="bi bi-lightning-fill text-primary" style="font-size: 3rem;"></i>
-                    <h4>Rapide</h4>
-                    <p>Notre service est conçu pour être ultra-rapide et efficace.</p>
-                </div>
-                <div class="col-md-4">
-                    <i class="bi bi-shield-lock-fill text-primary" style="font-size: 3rem;"></i>
-                    <h4>Sécurisé</h4>
-                    <p>Nous garantissons un haut niveau de sécurité pour vos données.</p>
-                </div>
-                <div class="col-md-4">
-                    <i class="bi bi-stars text-primary" style="font-size: 3rem;"></i>
-                    <h4>Innovant</h4>
-                    <p>Une technologie moderne pour une expérience utilisateur optimale.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
 
 {% endblock %}

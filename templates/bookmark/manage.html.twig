@@ -4,7 +4,12 @@
 
 {% block body %}
     <div class="container mt-5">
-        <h1 class="mb-4">{{ bookmark is defined ? 'Modifier' : 'Ajouter' }} un bookmark</h1>
+        <h1 class="mb-4">
+            {{ (bookmark is defined
+            ? 'bookmark.manage.title_edit'
+            : 'bookmark.manage.title_create'
+            )|trans }}
+        </h1>
 
         <div class="card shadow-sm">
             <div class="card-body">
@@ -31,9 +36,12 @@
                 </div>
 
                 <button type="submit" class="btn btn-success mt-3">
-                    {{ bookmark is defined ? 'Mettre à jour' : 'Ajouter' }}
+                    {{ (bookmark is defined
+                    ? 'bookmark.manage.submitButton_edit'
+                    : 'bookmark.manage.submitButton_create'
+                    )|trans }}
                 </button>
-                <a href="{{ path('bookmark_list') }}" class="btn btn-secondary mt-3 ms-2">Annuler</a>
+                <a href="{{ path('bookmark_list') }}" class="btn btn-secondary mt-3 ms-2">{{ 'bookmark.manage.cancelButton'|trans }}</a>
 
                 {{ form_end(form) }}
             </div>

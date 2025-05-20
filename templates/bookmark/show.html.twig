@@ -4,15 +4,9 @@
 
 {% block body %}
     <div class="container mt-5">
-        <h1 class="text-center color_mauve">Details du marque page {{ bookmark.id }}</h1>
+        <h1 class="text-center color_mauve">{{ 'bookmark.show.title'|trans }} {{ bookmark.id }}</h1>
         <div class="table-responsive mt-4">
             <table class="table table-bordered table-hover shadow-sm">
-                <thead>
-                <tr>
-                    <th>Libellé</th>
-                    <th>Valeur</th>
-                </tr>
-                </thead>
                 <tbody>
                     <tr>
                         <th class="color_rose">id</th>
@@ -23,17 +17,17 @@
                         <td class="color_bleu">{{ bookmark.url }}</td>
                     </tr>
                     <tr>
-                        <th class="color_rose">Commentaire</th>
+                        <th class="color_rose">{{ 'bookmark.show.table.comment'|trans }}</th>
                         <td class="color_bleu">{{ bookmark.comment ?: 'Aucun commentaire' }}</td>
                     </tr>
                     <tr>
-                        <th class="color_rose">Mots clés</th>
+                        <th class="color_rose">{{ 'bookmark.show.table.tags'|trans }}</th>
                         <td>
                             <ul class="list-inline">
                                 {% for tag in bookmark.tags %}
                                     <li class="list-inline-item badge bg_bleu text-white p-2">{{ tag.name }}</li>
                                 {% else %}
-                                    <li class="text-muted">Aucun mot-clé</li>
+                                    <li class="text-muted">{{ 'bookmark.show.table.tags_empty'|trans }}</li>
                                 {% endfor %}
                             </ul>
                         </td>
@@ -43,7 +37,7 @@
             </table>
 
             <div class="mt-3">
-                <a href="{{ path('bookmark_list') }}" class="btn btn-secondary">Retour à la liste</a>
+                <a href="{{ path('bookmark_list') }}" class="btn btn-secondary">{{ 'bookmark.show.button_back'|trans }}</a>
             </div>
         </div>
     </div>

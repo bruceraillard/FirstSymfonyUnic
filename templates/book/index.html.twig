@@ -4,15 +4,15 @@
 
 {% block body %}
     <div class="container mt-5">
-        <h1 class="text-center color_mauve">Liste des livres</h1> {# Page heading with styling #}
+        <h1 class="text-center color_mauve">{{ 'book.index.title'|trans }}</h1> {# Page heading with styling #}
 
         <div class="table-responsive mt-4">  {# Makes the table responsive for different screen sizes #}
 
             {# Dropdown form to filter books by the first letter #}
             <form action="{{ path('book_findByFirstLetter', {'firstLetter': ''}) }}" method="GET" class="mb-3">
-                <label for="filter">Filtrer par la première lettre :</label>
+                <label for="filter">{{ 'book.index.filter_label'|trans }}</label>
                 <select id="filterLetter" class="form-select w-auto">
-                    <option value="allBook">Tout</option> {# Option to show all books #}
+                    <option value="allBook">{{ 'book.index.filter_all'|trans }}</option> {# Option to show all books #}
                     {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'|split('') %}
                         {# Set the selected option based on the currently selected letter #}
                         <option value="{{ letter }}"
@@ -26,7 +26,7 @@
                 <thead>
                 <tr>
                     <th>Id</th> {# Column for book ID #}
-                    <th>Title ({{ numberOfBooks }})</th> {# Column for book titles, displaying the total count #}
+                    <th>{{ 'book.index.table.title'|trans }} ({{ numberOfBooks }})</th> {# Column for book titles, displaying the total count #}
                     <th style="width: 120px;">
                         <a href="{{ path('book_new') }}"
                            class="btn bg_mauve text-white d-flex align-items-center justify-content-center">
@@ -65,7 +65,7 @@
                 {% else %}
                     <tr>
                         <td colspan="4" class="text-center text-muted p-3">
-                            No books recorded.
+                            {{ 'book.index.table.empty'|trans }}
                         </td>
                     </tr>
                 {% endfor %}

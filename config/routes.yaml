@@ -1,5 +1,22 @@
+# Redirect the root URL to the French homepage without a permanent redirect
+home_redirect:
+  path: /
+  controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+  defaults:
+    # Target path for the redirect
+    path: /fr/
+    # Use a temporary (302) redirect rather than permanent (301)
+    permanent: false
+
+# Automatically load all controller routes from the src/Controller directory,
+# prefixing each route with the locale segment in the URL.
 controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+  resource: ../src/Controller/
+  type: attribute
+  # Require a locale prefix (either "fr" or "en") at the start of every route
+  prefix: '/{_locale}'
+  requirements:
+    _locale: 'fr|en'
+  # Default to French locale if none is provided
+  defaults:
+    _locale: 'fr'
